@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>MoraLiv — Tableau de bord</title>
+<style>
+  :root{
+    --bg: #15140f;
+    --panel: #1f1d16;
+    --card: #262319;
+    --card-hover: #2d2a1e;
+    --ink: #ece5d3;
+    --ink-dim: #a49b83;
+    --ink-faint: #6f6754;
+    --line: #3a3626;
+    --ochre: #c98a2b;
+    --ochre-dim: #7a5a24;
+    --red: #b5502e;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    padding:28px 24px 60px;
+  }
+  h1{
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight:700;
+    font-size:26px;
+    margin:0 0 2px;
+  }
+  .sub{ color:var(--ink-dim); font-size:13px; margin:0 0 20px; }
+  .status-pill{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:11.5px; color:var(--ink-faint);
+    margin-bottom:16px;
+  }
+  .dot{ width:7px; height:7px; border-radius:50%; background:#5a5a5a; }
+  .dot.ok{ background:#4d9a6f; }
+  .dot.err{ background:var(--red); }
+  .toolbar{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:space-between; margin-bottom:18px; }
+  .sprint-tabs{ display:flex; flex-wrap:wrap; gap:6px; }
+  .tab{
+    background:var(--panel); border:1px solid var(--line); color:var(--ink-dim);
+    font-size:12.5px; padding:6px 12px; border-radius:20px; cursor:pointer; user-select:none;
+  }
+  .tab:hover{ color:var(--ink); border-color:var(--ochre-dim); }
+  .tab.active{ background:var(--ochre-dim); border-color:var(--ochre); color:#f4e6c8; }
+  .add-btn{
+    background:var(--ochre); color:#231a08; border:none; font-weight:700; font-size:13px;
+    padding:8px 16px; border-radius:8px; cursor:pointer;
+  }
+  .add-btn:hover{ background:#dc9c3c; }
+  .stats{ display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap; }
+  .stat{ background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:10px 16px; min-width:100px; }
+  .stat .n{ font-size:20px; font-weight:700; }
+  .stat .l{ font-size:11px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.5px; }
+  .board{ display:grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap:14px; align-items:start; }
+  @media (max-width: 900px){ .board{ grid-template-columns: 1fr; } }
+  .col{ background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:12px; min-height:80px; }
+  .col-head{
+    display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;
+    padding-bottom:8px; border-bottom:2px solid var(--col-accent, var(--line));
+  }
+  .col-head span.title{ font-size:12.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color: var(--col-accent, var(--ink)); }
+  .col-head span.count{ font-size:11px; color:var(--ink-faint); background:var(--card); border-radius:10px; padding:1px 8px; }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:8px; padding:10px 11px; margin-bottom:8px; font-size:13px; line-height:1.4; }
+  .card:hover{ background:var(--card-hover); }
+  .card .title-line{ display:flex; justify-content:space-between; gap:6px; margin-bottom:6px; }
+  .card .del{ background:none; border:none; color:var(--ink-faint); cursor:pointer; font-size:13px; line-height:1; padding:0 2px; }
+  .card .del:hover{ color:var(--red); }
+  .tags{ display:flex; gap:5px; flex-wrap:wrap; margin-bottom:8px; }
+  .tag{ font-size:10px; padding:2px 7px; border-radius:20px; font-weight:600; }
+  .tag.sprint{ background:#233b35; color:#8fd6bd; }
+  .tag.prio-haute{ background:#3d2118; color:#e8926f; }
+  .tag.prio-moyenne{ background:#3a3018; color:#e0be7c; }
+  .tag.prio-basse{ background:#20291d; color:#a3c98a; }
+  .moves{ display:flex; justify-content:space-between; }
+  .mv{ background:none; border:1px solid var(--line); color:var(--ink-dim); font-size:11px; padding:3px 8px; border-radius:6px; cursor:pointer; }
+  .mv:hover{ border-color:var(--ochre-dim); color:var(--ink); }
+  .mv:disabled{ opacity:0.25; cursor:default; }
+  .empty{ color:var(--ink-faint); font-size:12px; text-align:center; padding:14px 4px; }
+  .modal-bg{ display:none; position:relative; background:rgba(0,0,0,0.5); border-radius:12px; padding:20px; margin-bottom:18px; }
+  .modal-bg.open{ display:block; }
+  .modal{ background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:16px; max-width:420px; }
+  .modal h3{ margin:0 0 12px; font-size:15px; }
+  .field{ margin-bottom:10px; }
+  .field label{ display:block; font-size:11.5px; color:var(--ink-dim); margin-bottom:4px; }
+  .field input, .field select{ width:100%; background:var(--card); border:1px solid var(--line); color:var(--ink); padding:8px 9px; border-radius:6px; font-size:13px; }
+  .modal-actions{ display:flex; gap:8px; justify-content:flex-end; margin-top:14px; }
+  .btn-secondary{ background:none; border:1px solid var(--line); color:var(--ink-dim); padding:7px 14px; border-radius:7px; cursor:pointer; font-size:13px; }
+  .err{ color:var(--red); font-size:12px; margin-top:6px; display:none; }
+</style>
+</head>
+<body>
+
+<h1>🌴 MoraLiv — Tableau de bord</h1>
+<p class="sub">Suivi des tâches par sprint</p>
+<div class="status-pill"><span class="dot" id="statusDot"></span><span id="statusText">Connexion au serveur...</span></div>
+
+<div class="stats" id="stats"></div>
+
+<div class="toolbar">
+  <div class="sprint-tabs" id="tabs"></div>
+  <button class="add-btn" id="openAdd">+ Nouvelle tâche</button>
+</div>
+
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <h3>Nouvelle tâche</h3>
+    <div class="field">
+      <label>Titre</label>
+      <input type="text" id="f-title" placeholder="Ex. Créer le modèle User">
+    </div>
+    <div class="field">
+      <label>Sprint</label>
+      <select id="f-sprint">
+        <option value="Sprint 1">Sprint 1 — Setup + Auth</option>
+        <option value="Sprint 2">Sprint 2 — Profils + géoloc</option>
+        <option value="Sprint 3">Sprint 3 — Chat + négociation</option>
+        <option value="Sprint 4">Sprint 4 — Workflow + tests</option>
+        <option value="Sprint 5">Sprint 5 — Déploiement + UX</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Priorité</label>
+      <select id="f-prio">
+        <option value="haute">Haute</option>
+        <option value="moyenne" selected>Moyenne</option>
+        <option value="basse">Basse</option>
+      </select>
+    </div>
+    <div class="err" id="f-err">Entrez un titre pour la tâche.</div>
+    <div class="modal-actions">
+      <button class="btn-secondary" id="cancelAdd">Annuler</button>
+      <button class="add-btn" id="confirmAdd">Ajouter</button>
+    </div>
+  </div>
+</div>
+
+<div class="board" id="board"></div>
+
+<script>
+const COLUMNS = [
+  { key:'backlog', label:'Backlog', accent:'#a49b83' },
+  { key:'todo', label:'À faire', accent:'#c98a2b' },
+  { key:'doing', label:'En cours', accent:'#2e8f74' },
+  { key:'review', label:'Revue', accent:'#7f8fd6' },
+  { key:'done', label:'Terminé', accent:'#6fa35a' }
+];
+
+let tasks = [];
+let activeSprint = 'all';
+
+async function api(path, options = {}) {
+  const res = await fetch('/api' + path, {
+    headers: { 'Content-Type': 'application/json' },
+    ...options
+  });
+  if (!res.ok && res.status !== 204) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.error || 'Erreur serveur');
+  }
+  return res.status === 204 ? null : res.json();
+}
+
+async function loadTasks() {
+  setStatus('connecting');
+  try {
+    tasks = await api('/tasks');
+    setStatus('ok');
+  } catch (e) {
+    setStatus('err');
+  }
+}
+
+function setStatus(state) {
+  const dot = document.getElementById('statusDot');
+  const text = document.getElementById('statusText');
+  dot.className = 'dot' + (state === 'ok' ? ' ok' : state === 'err' ? ' err' : '');
+  text.textContent = state === 'ok' ? 'Connecté — données sauvegardées sur ton disque'
+    : state === 'err' ? 'Serveur injoignable — lance "npm start"'
+    : 'Connexion au serveur...';
+}
+
+function render() {
+  renderTabs();
+  renderStats();
+  renderBoard();
+}
+
+function renderTabs() {
+  const tabs = document.getElementById('tabs');
+  const sprints = ['all','Sprint 1','Sprint 2','Sprint 3','Sprint 4','Sprint 5'];
+  tabs.innerHTML = '';
+  sprints.forEach(s => {
+    const el = document.createElement('div');
+    el.className = 'tab' + (activeSprint === s ? ' active' : '');
+    el.textContent = s === 'all' ? 'Tous les sprints' : s;
+    el.onclick = () => { activeSprint = s; render(); };
+    tabs.appendChild(el);
+  });
+}
+
+function visibleTasks() {
+  return activeSprint === 'all' ? tasks : tasks.filter(t => t.sprint === activeSprint);
+}
+
+function renderStats() {
+  const vis = visibleTasks();
+  const total = vis.length;
+  const done = vis.filter(t => t.col === 'done').length;
+  const doing = vis.filter(t => t.col === 'doing').length;
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  document.getElementById('stats').innerHTML = `
+    <div class="stat"><div class="n">${total}</div><div class="l">Tâches</div></div>
+    <div class="stat"><div class="n">${doing}</div><div class="l">En cours</div></div>
+    <div class="stat"><div class="n">${done}</div><div class="l">Terminées</div></div>
+    <div class="stat"><div class="n">${pct}%</div><div class="l">Avancement</div></div>
+  `;
+}
+
+function renderBoard() {
+  const board = document.getElementById('board');
+  board.innerHTML = '';
+  const vis = visibleTasks();
+  COLUMNS.forEach((col, colIdx) => {
+    const colEl = document.createElement('div');
+    colEl.className = 'col';
+    colEl.style.setProperty('--col-accent', col.accent);
+    const items = vis.filter(t => t.col === col.key);
+
+    const head = document.createElement('div');
+    head.className = 'col-head';
+    head.innerHTML = `<span class="title">${col.label}</span><span class="count">${items.length}</span>`;
+    colEl.appendChild(head);
+
+    if (items.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'empty';
+      empty.textContent = 'Vide';
+      colEl.appendChild(empty);
+    }
+
+    items.forEach(task => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="title-line">
+          <div>${escapeHtml(task.title)}</div>
+          <button class="del" aria-label="Supprimer" data-id="${task.id}">&times;</button>
+        </div>
+        <div class="tags">
+          <span class="tag sprint">${task.sprint}</span>
+          <span class="tag prio-${task.prio}">${task.prio}</span>
+        </div>
+        <div class="moves">
+          <button class="mv" data-id="${task.id}" data-dir="-1" ${colIdx===0?'disabled':''}>&larr; ${colIdx>0?COLUMNS[colIdx-1].label:''}</button>
+          <button class="mv" data-id="${task.id}" data-dir="1" ${colIdx===COLUMNS.length-1?'disabled':''}>${colIdx<COLUMNS.length-1?COLUMNS[colIdx+1].label:''} &rarr;</button>
+        </div>
+      `;
+      colEl.appendChild(card);
+    });
+
+    board.appendChild(colEl);
+  });
+
+  board.querySelectorAll('.del').forEach(btn => {
+    btn.onclick = async () => {
+      try {
+        await api('/tasks/' + btn.dataset.id, { method: 'DELETE' });
+        tasks = tasks.filter(t => t.id !== btn.dataset.id);
+        render();
+      } catch (e) { setStatus('err'); }
+    };
+  });
+  board.querySelectorAll('.mv').forEach(btn => {
+    btn.onclick = async () => {
+      const t = tasks.find(t => t.id === btn.dataset.id);
+      if (!t) return;
+      const idx = COLUMNS.findIndex(c => c.key === t.col);
+      const newIdx = idx + parseInt(btn.dataset.dir, 10);
+      if (newIdx < 0 || newIdx >= COLUMNS.length) return;
+      const newCol = COLUMNS[newIdx].key;
+      try {
+        await api('/tasks/' + t.id, { method: 'PATCH', body: JSON.stringify({ col: newCol }) });
+        t.col = newCol;
+        render();
+      } catch (e) { setStatus('err'); }
+    };
+  });
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+document.getElementById('openAdd').onclick = () => {
+  document.getElementById('modalBg').classList.add('open');
+  document.getElementById('f-title').value = '';
+  document.getElementById('f-err').style.display = 'none';
+  document.getElementById('f-sprint').value = activeSprint !== 'all' ? activeSprint : 'Sprint 1';
+};
+document.getElementById('cancelAdd').onclick = () => {
+  document.getElementById('modalBg').classList.remove('open');
+};
+document.getElementById('confirmAdd').onclick = async () => {
+  const title = document.getElementById('f-title').value.trim();
+  const err = document.getElementById('f-err');
+  if (!title) { err.style.display = 'block'; return; }
+  err.style.display = 'none';
+  const sprint = document.getElementById('f-sprint').value;
+  const prio = document.getElementById('f-prio').value;
+  try {
+    const task = await api('/tasks', { method: 'POST', body: JSON.stringify({ title, sprint, prio }) });
+    tasks.push(task);
+    document.getElementById('modalBg').classList.remove('open');
+    render();
+  } catch (e) { setStatus('err'); }
+};
+
+(async function init() {
+  await loadTasks();
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+[
+  {
+    "id": "t0001",
+    "title": "Initialiser le repo Git (client/server)",
+    "sprint": "Sprint 1",
+    "prio": "haute",
+    "col": "todo"
+  },
+  {
+    "id": "t0002",
+    "title": "Setup Vue 3 + Vite + Tailwind",
+    "sprint": "Sprint 1",
+    "prio": "haute",
+    "col": "todo"
+  },
+  {
+    "id": "t0003",
+    "title": "Setup Express + connexion MongoDB Atlas",
+    "sprint": "Sprint 1",
+    "prio": "haute",
+    "col": "backlog"
+  },
+  {
+    "id": "t0004",
+    "title": "Modèle User (client/livreur) Mongoose",
+    "sprint": "Sprint 1",
+    "prio": "haute",
+    "col": "backlog"
+  },
+  {
+    "id": "t0005",
+    "title": "Endpoint inscription (register)",
+    "sprint": "Sprint 1",
+    "prio": "moyenne",
+    "col": "backlog"
+  },
+  {
+    "id": "t0006",
+    "title": "Endpoint connexion (JWT + cookie httpOnly)",
+    "sprint": "Sprint 1",
+    "prio": "haute",
+    "col": "backlog"
+  },
+  {
+    "id": "t0007",
+    "title": "Middleware d'authentification",
+    "sprint": "Sprint 1",
+    "prio": "moyenne",
+    "col": "backlog"
+  },
+  {
+    "id": "t0008",
+    "title": "UI inscription / connexion",
+    "sprint": "Sprint 1",
+    "prio": "moyenne",
+    "col": "backlog"
+  },
+  {
+    "id": "t0009",
+    "title": "Store Pinia auth",
+    "sprint": "Sprint 1",
+    "prio": "basse",
+    "col": "backlog"
+  },
+  {
+    "id": "t0010",
+    "title": "Tests Postman des endpoints auth",
+    "sprint": "Sprint 1",
+    "prio": "basse",
+    "col": "backlog"
+  },
+  {
+    "id": "t0011",
+    "title": "Modèle profil livreur (véhicule, tarif/km, zone)",
+    "sprint": "Sprint 2",
+    "prio": "haute",
+    "col": "backlog"
+  },
+  {
+    "id": "t0012",
+    "title": "Endpoint mise à jour profil livreur",
+    "sprint": "Sprint 2",
+    "prio": "moyenne",
+    "col": "backlog"
+  },
+  {
+    "id": "t0013",
+    "title": "UI formulaire profil livreur",
+    "sprint": "Sprint 2",
+    "prio": "moyenne",
+    "col": "backlog"
+  },
+  {
+    "id": "t0014",
+    "title": "Intégration Geolocation API navigateur",
+    "sprint": "Sprint 2",
+    "prio": "haute",
+    "col": "backlog"
+  },
+  {
+    "id": "t0015",
+    "title": "Stockage position livreur en base",
+    "sprint": "Sprint 2",
+    "prio": "moyenne",
+    "col": "backlog"
+  },
+  {
+    "id": "t0016",
+    "title": "Endpoint création demande de livraison",
+    "sprint": "Sprint 2",
+    "prio": "haute",
+    "col": "backlog"
+  },
+  {
+    "id": "t0017",
+    "title": "Calcul distance (Haversine) + prix estimé",
+    "sprint": "Sprint 2",
+    "prio": "haute",
+    "col": "backlog"
+  },
+  {
+    "id": "t0018",
+    "title": "UI création demande client",
+    "sprint": "Sprint 2",
+    "prio": "moyenne",
+    "col": "backlog"
+  },
+  {
+    "id": "t0019",
+    "title": "Liste des livreurs proches ($near Mongo)",
+    "sprint": "Sprint 2",
+    "prio": "moyenne",
+    "col": "backlog"
+  },
+  {
+    "id": "t0020",
+    "title": "Setup Socket.IO serveur",
+    "sprint": "Sprint 3",
+    "prio": "haute",
+    "col": "backlog"
+  },
+  {
+    "id": "t0021",
+    "title": "Setup Socket.IO client (Vue)",
+    "sprint": "Sprint 3",
+    "prio": "haute",
+    "col": "backlog"
+  },
+  {
+    "id": "t0022",
+    "title": "Modèle conversation / message",
+    "sprint": "Sprint 3",
+    "prio": "moyenne",
+    "col": "backlog"
+  },
+  {
+    "id": "t0023",
+    "title": "UI chat en temps réel",
+    "sprint": "Sprint 3",
+    "prio": "haute",
+    "col": "backlog"
+  },
+  {
+    "id": "t0024",
+    "title": "Logique proposition de prix (livreur)",
+    "sprint": "Sprint 3",
+    "prio": "haute",
+    "col": "backlog"
+  },
+  {
+    "id": "t0025",
+    "title": "Logique contre-proposition (client)",
+    "sprint": "Sprint 3",
+    "prio": "haute",
+    "col": "backlog"
+  },
+  {
+    "id": "t0026",
+    "title": "Notification nouvelle offre",
+    "sprint": "Sprint 3",
+    "prio": "basse",
+    "col": "backlog"
+  },
+  {
+    "id": "t0027",
+    "title": "Historique de négociation persistant",
+    "sprint": "Sprint 3",
+    "prio": "basse",
+    "col": "backlog"
+  },
+  {
+    "id": "t0028",
+    "title": "Confirmation mutuelle → statut en cours",
+    "sprint": "Sprint 4",
+    "prio": "haute",
+    "col": "backlog"
+  },
+  {
+    "id": "t0029",
+    "title": "UI suivi de statut de la course",
+    "sprint": "Sprint 4",
+    "prio": "moyenne",
+    "col": "backlog"
+  },
+  {
+    "id": "t0030",
+    "title": "Formulaire évaluation post-livraison",
+    "sprint": "Sprint 4",
+    "prio": "moyenne",
+    "col": "backlog"
+  },
+  {
+    "id": "t0031",
+    "title": "Endpoint notation + commentaire",
+    "sprint": "Sprint 4",
+    "prio": "moyenne",
+    "col": "backlog"
+  },
+  {
+    "id": "t0032",
+    "title": "Calcul de la commission 10%",
+    "sprint": "Sprint 4",
+    "prio": "haute",
+    "col": "backlog"
+  },
+  {
+    "id": "t0033",
+    "title": "Tests de bout en bout du parcours complet",
+    "sprint": "Sprint 4",
+    "prio": "haute",
+    "col": "backlog"
+  },
+  {
+    "id": "t0034",
+    "title": "Corrections des bugs identifiés",
+    "sprint": "Sprint 4",
+    "prio": "moyenne",
+    "col": "backlog"
+  },
+  {
+    "id": "t0035",
+    "title": "Déploiement frontend sur Vercel",
+    "sprint": "Sprint 5",
+    "prio": "haute",
+    "col": "backlog"
+  },
+  {
+    "id": "t0036",
+    "title": "Déploiement backend sur Render",
+    "sprint": "Sprint 5",
+    "prio": "haute",
+    "col": "backlog"
+  },
+  {
+    "id": "t0037",
+    "title": "Config variables d'environnement production",
+    "sprint": "Sprint 5",
+    "prio": "moyenne",
+    "col": "backlog"
+  },
+  {
+    "id": "t0038",
+    "title": "Optimisation mobile-first / faible bande passante",
+    "sprint": "Sprint 5",
+    "prio": "moyenne",
+    "col": "backlog"
+  },
+  {
+    "id": "t0039",
+    "title": "Tests sur connexion lente",
+    "sprint": "Sprint 5",
+    "prio": "basse",
+    "col": "backlog"
+  },
+  {
+    "id": "t0040",
+    "title": "Recherche API Orange Money / Airtel Money",
+    "sprint": "Sprint 5",
+    "prio": "basse",
+    "col": "backlog"
+  },
+  {
+    "id": "t0041",
+    "title": "Rédaction du README / documentation",
+    "sprint": "Sprint 5",
+    "prio": "basse",
+    "col": "backlog"
+  },
+  {
+    "id": "tsjkiz0i8",
+    "title": "Test tâche",
+    "sprint": "Sprint 1",
+    "prio": "haute",
+    "col": "backlog",
+    "createdAt": "2026-08-18T06:30:35.914Z"
+  }
+]
