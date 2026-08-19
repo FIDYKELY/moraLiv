@@ -4,21 +4,21 @@
     "title": "Initialiser le repo Git (client/server)",
     "sprint": "Sprint 1",
     "prio": "haute",
-    "col": "todo"
+    "col": "done"
   },
   {
     "id": "t0002",
     "title": "Setup Vue 3 + Vite + Tailwind",
     "sprint": "Sprint 1",
     "prio": "haute",
-    "col": "todo"
+    "col": "done"
   },
   {
     "id": "t0003",
     "title": "Setup Express + connexion MongoDB Atlas",
     "sprint": "Sprint 1",
     "prio": "haute",
-    "col": "backlog"
+    "col": "done"
   },
   {
     "id": "t0004",
@@ -285,13 +285,5 @@
     "sprint": "Sprint 5",
     "prio": "basse",
     "col": "backlog"
-  },
-  {
-    "id": "tsjkiz0i8",
-    "title": "Test tâche",
-    "sprint": "Sprint 1",
-    "prio": "haute",
-    "col": "backlog",
-    "createdAt": "2026-08-18T06:30:35.914Z"
   }
 ]
