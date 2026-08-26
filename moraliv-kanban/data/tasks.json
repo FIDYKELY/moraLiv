@@ -25,14 +25,14 @@
     "title": "Modèle User (client/livreur) Mongoose",
     "sprint": "Sprint 1",
     "prio": "haute",
-    "col": "backlog"
+    "col": "done"
   },
   {
     "id": "t0005",
     "title": "Endpoint inscription (register)",
     "sprint": "Sprint 1",
     "prio": "moyenne",
-    "col": "backlog"
+    "col": "doing"
   },
   {
     "id": "t0006",
