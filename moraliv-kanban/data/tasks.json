@@ -32,21 +32,21 @@
     "title": "Endpoint inscription (register)",
     "sprint": "Sprint 1",
     "prio": "moyenne",
-    "col": "doing"
+    "col": "done"
   },
   {
     "id": "t0006",
     "title": "Endpoint connexion (JWT + cookie httpOnly)",
     "sprint": "Sprint 1",
     "prio": "haute",
-    "col": "backlog"
+    "col": "done"
   },
   {
     "id": "t0007",
     "title": "Middleware d'authentification",
     "sprint": "Sprint 1",
     "prio": "moyenne",
-    "col": "backlog"
+    "col": "todo"
   },
   {
     "id": "t0008",
