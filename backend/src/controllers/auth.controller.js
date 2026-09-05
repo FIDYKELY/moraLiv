@@ -25,7 +25,7 @@ export const login = async (req, res) => {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000
         })
-        res.status(200).json(userWithoutPassword, token)
+        res.status(200).json(userWithoutPassword)
     } catch (error) {
         res.status(401).json({
             message: "Email ou mot de passe incorrect"
@@ -33,4 +33,8 @@ export const login = async (req, res) => {
         console.log(`Erreur lors de la connexion`, error)
     }
     
+}
+
+export const me = (req, res) => {
+    res.status(200).json(req.user)
 }
