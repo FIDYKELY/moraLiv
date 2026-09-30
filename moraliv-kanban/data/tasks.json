@@ -53,21 +53,21 @@
     "title": "UI inscription / connexion",
     "sprint": "Sprint 1",
     "prio": "moyenne",
-    "col": "backlog"
+    "col": "done"
   },
   {
     "id": "t0009",
     "title": "Store Pinia auth",
     "sprint": "Sprint 1",
     "prio": "basse",
-    "col": "backlog"
+    "col": "done"
   },
   {
     "id": "t0010",
     "title": "Tests Postman des endpoints auth",
     "sprint": "Sprint 1",
     "prio": "basse",
-    "col": "backlog"
+    "col": "done"
   },
   {
     "id": "t0011",

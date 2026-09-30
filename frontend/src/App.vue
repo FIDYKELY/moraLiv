@@ -1,9 +1,10 @@
-<script setup></script>
+<script setup>
+import { onMounted } from 'vue'
+onMounted(async () => {})
+</script>
 
 <template>
-  <div class="min-h-screen bg-gray-900 flex items-center justify-center">
-    <h1 class="text-5xl font-bold text-white">MoraLiv</h1>
-  </div>
+  <RouterView />
 </template>
 
 <style scoped></style>

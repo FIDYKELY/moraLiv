@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import dns from "node:dns";
+
+dns.setServers(["192.168.168.108"]);
 
 const connectDB = async () => {
     try {

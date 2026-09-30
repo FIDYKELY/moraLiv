@@ -35,6 +35,14 @@ export const login = async (req, res) => {
     
 }
 
+export const logout = (req, res) => {
+    res.clearCookie('token')
+
+    res.status(200).json({
+        message: 'Déconnexion réussie'
+    })
+}
+
 export const me = (req, res) => {
     res.status(200).json(req.user)
 }
